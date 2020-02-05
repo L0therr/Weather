@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+    <title>WeatherApp</title>
+</head>
+
+<body>
+
+
+    <!-- HEADER -->
+    <nav class=" header navbar navbar-light bg-dark">
+       <a href="/weather">Weather App</a>
+        <a class="logout" href="/users/signout">Deconnexion</a>
+    </nav>
+    <!-- GRID -->
+
+    <div class="container">
+
+        <div id="searchBar" class="row d-flex justify-content-end">
+            <form method="post" action="/addcity" class="form-inline formSearch col-12 col-lg-6">
+                <input name="inputSearch" type="text" class="form-control" placeholder="city">
+                <button name="submitBtn" type="submit" class="btn btn-warning">Add</button>
+            </form>
+        </div>
+        <div class="row d-flex justify-content-between">
+            <div class="map col-12 col-lg-6 ">
+                <div id="worldmap"></div>
+            </div>
+            <ul class="list-group col-12 col-lg-6 ">
+                <a href="/update">UPDTATE</a>
+                <%if(cityList.length === 0) {%>
+                    <p class="warningTxt">No cities found</p>
+                    <%}
+                for(var i=0;i<cityList.length;i++){
+                %>
+                        <li data-lat="<%= cityList[i].lat %>" data-lon="<%= cityList[i].lon %>" data-name="<%= cityList[i].name %>" class="list-group-item d-flex justify-content-between">
+                            <span><%= cityList[i].name.charAt(0).toUpperCase() + cityList[i].name.slice(1) %></span>
+                            <div class="d-flex justify-content-between">
+                                <img src="<%= cityList[i].ico %>">
+                                <span><%= cityList[i].state %></span>
+                                <span class="badge badge-pill badge-warning"><%= cityList[i].tempMin %> C°</span>
+                                <span class="badge badge-pill badge-secondary"><%= cityList[i].tempMax %> C°</span>
+                            </div>
+                            <a href="/rmvcity?id=<%= cityList[i].id %>"><i class="far fa-times-circle"></i></a>
+                        </li>
+                        <%
+                            }
+                            %>
+            </ul>
+        </div>
+    </div>
+
+    <!-- SCRIPT -->
+    <script src="https://kit.fontawesome.com/7f93ca795e.js " crossorigin="anonymous "></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js " integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo " crossorigin="anonymous "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js " integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49 " crossorigin="anonymous "></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js " integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy " crossorigin="anonymous "></script>
+    <script src="/javascripts/script.js"></script>
+</body>
+
+</html>
